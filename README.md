@@ -40,9 +40,7 @@ executed in same way that other tasks are executed in your app.
 # Functions
 
 <h3>
-```elm
 tick : (Time -> Task x a) -> Task () ()
-```
 </h3>
 
 Returns a task which, when excecuted, waits for the browser to request an
@@ -52,9 +50,7 @@ requestAnimationFrame(). The Task returned by your function is then immediately
 executed.
 
 <h3>
-```elm
 tock : Address action -> (Time -> action) -> Task () ()
-```
 </h3>
 
 Like tick, except that you provide a function which returns an action, which
@@ -77,9 +73,7 @@ tock address Tick
 frame is needed and then send the message to the address.
 
 <h3>
-```elm
 tasks : Signal (Task () ())
-```
 </h3>
 
 A signal of tasks which the module needs to be executed in order to maintain
@@ -87,9 +81,7 @@ its internal state. In order to use this module, you need to connect this
 signal to a port in your main module -- see example above.
 
 <h3>
-```elm
 dropWhileWaiting : a -> Signal a -> Signal a
-```
 </h3>
 
 Given a `Signal`, and an initial value, returns a new `Signal` which will
