@@ -121,6 +121,6 @@ to prevent other parts of your logic from running -- you still need every
 
 Note that the initial value which you supply as the second parameter is not
 actually used -- it would only be used if the initial state would be to drop
-updates, which it is not. However, for the initial value is still required in
+updates, which it is not. However, the initial value is still required in
 order to satisfy the type checker -- it can be anything that has the
 correct type.
