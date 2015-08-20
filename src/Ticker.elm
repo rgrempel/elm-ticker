@@ -20,7 +20,10 @@ for a `Signal` of animtation frames.
 * You can use `dropWhileWaiting` to 'debounce' your `Signal` of models so that your
   `view` method is only recalculated once per animation frame. This turns out to be
   a very significant optimization, especially where your app has many components
-  which are mananging their own animations
+  which are mananging their own animations. To see how much difference it makes,
+  compare spinning 100 squares
+  [without using dropWhileWaiting](https://rgrempel.github.io/elm-ticker/unoptimized.html)
+  vs. the otherwise-identical code [using dropWhileWaiting](https://rgrempel.github.io/elm-ticker/optimized.html).
 
 Note that this module provides a signal of tasks which need to be executed. In
 order for that to happen, you will need to connect that signal to a port in
