@@ -51,7 +51,7 @@ import Native.Ticker
 -- Public API --
 ----------------
 
-{-| Returns a task which, when excecuted, waits for the browser to request an
+{-| Returns a task which, when executed, waits for the browser to request an
 animation frame (via the browser's native requestAnimationFrame() method). It
 then calls the function you provided, passing along the Time provided by 
 requestAnimationFrame(). The Task returned by your function is then immediately
@@ -124,7 +124,7 @@ Of course, your app may be wired differently -- the main thing is to apply
 to prevent other parts of your logic from running -- you still need every
 `update`, for instance.
 
-Note that the initial value which you supply as the second parameter is not
+Note that the initial value which you supply as the first parameter is not
 actually used -- it would only be used if the initial state would be to drop
 updates, which it is not. However, the initial value is still required in
 order to satisfy the type checker -- it can be anything that has the
