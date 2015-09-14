@@ -10180,38 +10180,26 @@ Elm.Native.Text.make = function(localRuntime) {
 		renderHtml: renderHtml
 	};
 };
-// This is copied and renamed from
-//
-// https://github.com/evancz/elm-effects/blob/master/src/Native/Effects.js
-
 Elm.Native.Ticker = {};
-Elm.Native.Ticker.make = function(localRuntime) {
-
+Elm.Native.Ticker.make = function (localRuntime) {
 	localRuntime.Native = localRuntime.Native || {};
 	localRuntime.Native.Ticker = localRuntime.Native.Ticker || {};
-	if (localRuntime.Native.Ticker.values)
-	{
+	
+    if (localRuntime.Native.Ticker.values) {
 		return localRuntime.Native.Ticker.values;
 	}
 
 	var Task = Elm.Native.Task.make(localRuntime);
-	var Utils = Elm.Native.Utils.make(localRuntime);
 
-
-	function raf(timeToTask)
-	{
-		return Task.asyncFunction(function(callback) {
-			requestAnimationFrame(function(time) {
-				Task.perform(timeToTask(time));
-			});
-			callback(Task.succeed(Utils.Tuple0));
-		});
-	}
-
-	return localRuntime.Native.Ticker.values = {
-		requestAnimationFrame: raf
+    var wait = Task.asyncFunction(function(callback) {
+        requestAnimationFrame(function(time) {
+            callback(Task.succeed(time));
+        });
+    });
+	
+    return localRuntime.Native.Ticker.values = {
+		wait: wait
 	};
-
 };
 Elm.Native.Time = {};
 Elm.Native.Time.make = function(localRuntime)
@@ -14485,7 +14473,7 @@ Elm.Ticker.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $Task = Elm.Task.make(_elm),
    $Time = Elm.Time.make(_elm);
-   var requestAnimationFrame = $Native$Ticker.requestAnimationFrame;
+   var wait = $Native$Ticker.wait;
    var batch = function (tasks) {
       return $Task.map($Basics.always({ctor: "_Tuple0"}))($Task.mapError($Basics.always({ctor: "_Tuple0"}))($Task.sequence(tasks)));
    };
@@ -14504,16 +14492,15 @@ Elm.Ticker.make = function (_elm) {
       };
    };
    var waiting = $Signal.mailbox(false);
-   var schedule = function () {
-      var raf = requestAnimationFrame(function ($) {
-         return $Signal.send(actions.address)(Execute($));
-      });
-      return A2($Task.andThen,
-      A2($Signal.send,
-      waiting.address,
-      true),
-      $Basics.always(raf));
-   }();
+   var schedule = A2($Task.andThen,
+   A2($Task.andThen,
+   A2($Signal.send,
+   waiting.address,
+   true),
+   $Basics.always(wait)),
+   function ($) {
+      return $Signal.send(actions.address)(Execute($));
+   });
    var step = F2(function (action,
    _v0) {
       return function () {
@@ -14542,10 +14529,10 @@ Elm.Ticker.make = function (_elm) {
                                                                                  _v0._0)
                                                                                  ,_1: $Maybe.Nothing};}
                  _U.badCase($moduleName,
-                 "between lines 202 and 213");
+                 "between lines 205 and 216");
               }();}
          _U.badCase($moduleName,
-         "between lines 202 and 213");
+         "between lines 205 and 216");
       }();
    });
    var steps = A3($Signal.foldp,
