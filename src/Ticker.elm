@@ -225,17 +225,11 @@ batch tasks =
 
 schedule : HandledTask
 schedule =
-    let
-        raf =
-            requestAnimationFrame <|
-                Signal.send actions.address << Execute
-    
-    in
-        Signal.send waiting.address True
-            `andThen` always raf
+    Signal.send waiting.address True
+        `andThen` always wait
+            `andThen` (Signal.send actions.address << Execute)
 
 
-requestAnimationFrame : (Time -> HandledTask) -> HandledTask
-requestAnimationFrame =
-    Native.Ticker.requestAnimationFrame
+wait : Task x Time
+wait = Native.Ticker.wait
 
