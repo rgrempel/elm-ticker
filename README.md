@@ -144,23 +144,9 @@ correct type.
 
 ## Installation
 
-Because elm-ticker uses a 'native' module, it
-[requires approval](https://github.com/elm-lang/package.elm-lang.org/issues/71)
-before it can be included in the
+Because elm-ticker uses a 'native' module, it cannot be included in the
 [Elm package repository](http://package.elm-lang.org/packages). Thus, you cannot
-currently install it using `elm-package`.
-
-In fact, it is unlikely that elm-ticker will get approval to appear in the
-Elm package repository. This is essentially for two reasons:
-
-*   elm-ticker is, admittedly, an experimental module -- an alternative to
-    mainstream Elm best practices. Therefore, its appearance in the Elm package
-    repository could be a distraction to the development of the Elm community.
-
-*   It is possible that Elm may, in the future, wish to treat `requestAnimationFrame`
-    in a special way -- for instance, in order to 'play nice' with elm-reactor.
-    It will be easier to do that if the use of `requestAnimationFrame` is centralized
-    in a smaller number of modules.
+install it using `elm-package`.
 
 However, if you insist on installing elm-ticker, it can be done via the following steps:
 
@@ -196,11 +182,13 @@ Now, doing this would have several implications which you should be aware of.
     that the code in [Ticker.js](src/Native/Ticker.js) is appropriate code for
     a 'native' module.
 
-*   You would be relying on me to update that code when the mechanism for using
-    'native' modules in Elm changes, or when certain other internal details of Elm's
-    implementation change. Furthermore, you'd have to check here whenever the Elm
-    compiler's version changes, or the Elm core library's version changes, to see
-    whether an update is required.
+*   It is predictable that this module will need some changes when a new
+    version of Elm is released. Therefore, you would need to remember to check
+    here for such changes when that happens.
+
+*   It has been said that Elm 0.17 will include additional support for bindings
+    to Javascript platform APIs. This may make it easier or harder to implement
+    or install this module.
 
 *   If you're using this as part of a module you'd like to publish yourself,
     then you won't be able to publish your module in the Elm package repository
