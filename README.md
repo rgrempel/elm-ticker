@@ -1,3 +1,7 @@
+# Deprecation Notice
+
+I don't expect to update this module for Elm 0.17.
+
 # elm-ticker
 
 This module provides an alternative implementation of the idea of a `Tick`
